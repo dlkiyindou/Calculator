@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Calculator {
@@ -8,21 +10,20 @@ public class Calculator {
 		System.out.println("Veuillez entrer une operation SVP");
 		
 		Scanner scanner = new Scanner(System.in);
-		String operation = scanner.nextLine();
+		String stringOperation = scanner.nextLine();
+		List <String> l = new ArrayList<>();
 		
+		Scanner parser = new Scanner(stringOperation);
+		while (parser.hasNext()){
+			String tmp = parser.next();
+			l.add(tmp);
+		}
+		
+		
+		System.out.println(stringOperation);
+		Operation operation = OperationFactory.build(l);
 		System.out.println(operation);
 		
-		Scanner scanner2 = new Scanner(operation);
-		int firstInt = scanner2.nextInt();
-		String operator = scanner2.next();
-		int secondInt
-		
-		System.out.println(firstInt);
-		System.out.println(operator);
-		
-		scanner.close();
-		scanner2.close();
-
 	}
 
 }

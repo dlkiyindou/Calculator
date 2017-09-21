@@ -19,17 +19,25 @@ public class OperationFactory {
 	}
 	
 	public static Operation build (List<String> l){
+		Operation operation = null;
 		int position = l.indexOf(Operator.ADDITION.getSymbol());
+		Operator op = Operator.ADDITION;
 		if (position == -1){
 			position = l.indexOf(Operator.SOUSTRACTION.getSymbol());
+			op = Operator.SOUSTRACTION;
 		}
-//		while (l.iterator().hasNext()){
-//			String current = l.iterator().next();
-//			if (Operator.ADDITION.getSymbol().equals(current) || Operator.SOUSTRACTION.getSymbol().equals(current)){
-//				
-//			}
-//		}
-		return null;
-		
+		if (position != -1){
+			List <String> listLeft = l.subList(0, position);
+			List <String> listRight = l.subList(position + 1, l.size());
+			Operand opL = new Operand(build(listLeft));
+			Operand opR = new Operand(build(listRight));
+			operation = new Operation (op, opL, opR);
+		}
+		else{
+			if (l.size() == 1){
+				operation = new Operand (l.get(0));
+			}
+		}
+			return operation;
 	}
 }
