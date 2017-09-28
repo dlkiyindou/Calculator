@@ -22,7 +22,7 @@ public class Calculator {
 		
 		System.out.println(stringOperation);
 		Operation operation = OperationFactory.build(l);
-		System.out.println(operation);
+		System.out.println(operation.evaluate());
 		
 	}
 

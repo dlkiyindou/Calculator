@@ -16,5 +16,8 @@ public enum Operator {
 		return symbol;
 		
 	}
+	public String toString(){
+		return getSymbol();
+	}
 
 }

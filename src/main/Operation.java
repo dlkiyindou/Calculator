@@ -4,8 +4,9 @@ public class Operation {
 	private Operand operandR;
 	private Operand operandL;
 	private Operator operator;
+	private Integer value;
 	
-	public Operation (Operator operator, Operand operandR, Operand operandL){
+	public Operation (Operator operator, Operand operandL, Operand operandR){
 		this.operator = operator;
 		this.operandL = operandL;
 		this.operandR = operandR;
@@ -37,21 +38,59 @@ public class Operation {
 	public String toString (){
 		StringBuilder sb = new StringBuilder("(");
 		
-		if (operandL != null) {
+		if (operandL != null && operator != null && operandR != null) {
 			sb.append(operandL.toString());
-		}
-		
-		if (operator != null) {
+			sb.append(" ");
 			sb.append(operator.toString());
-		}
-		
-		if (operandR != null) {
+			sb.append(" ");
 			sb.append(operandR.toString());
+		} else {
+			sb.append(getValue());
 		}
-		
 		sb.append(")");
 		
 		return sb.toString();
+	}
+
+	public Integer getValue() {
+		return value;
+	}
+
+	public void setValue(Integer value) {
+		this.value = value;
+	}
+
+	public Integer evaluate() {
+		Integer value = null;
+		
+		if (getValue() == null){
+			if (this.getOperator() !=null && this.getOperandL() != null && this.getOperandR() != null){
+				switch (this.getOperator()){
+					case ADDITION :
+						value = this.getOperandL().evaluate() + this.getOperandR().evaluate();
+						break;
+					case SOUSTRACTION :
+						value = this.getOperandL().evaluate() - this.getOperandR().evaluate();
+						break;
+					case MULTIPLICATION : 
+						value = this.getOperandL().evaluate() * this.getOperandR().evaluate();
+						break;
+					case DIVISION : 
+						value = this.getOperandL().evaluate() / this.getOperandR().evaluate();
+						break;
+				default:
+					break;
+				}
+			} else {
+				value = 0;
+			}
+			
+			setValue(value);
+		}
+
+		
+		
+		return getValue();	
 	}
 
 

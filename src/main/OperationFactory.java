@@ -17,14 +17,28 @@ public class OperationFactory {
 		
 		
 	}
-	
+
 	public static Operation build (List<String> l){
 		Operation operation = null;
-		int position = l.indexOf(Operator.ADDITION.getSymbol());
+		int position;
+		while ((position = l.indexOf(Operator.DIVISION.getSymbol())) != -1)  { 
+			String dividend = l.get(position - 1);
+			String divisor = l.get(position + 1);
+			Operation division = new Operation(Operator.DIVISION, new Operand (dividend), new Operand (divisor));
+			Integer resultDivision = division.evaluate();
+			l.set(position - 1, String.valueOf(resultDivision));
+			l.remove(position + 1);
+			l.remove(position);
+		} 
+		position = l.indexOf(Operator.ADDITION.getSymbol());
 		Operator op = Operator.ADDITION;
 		if (position == -1){
 			position = l.indexOf(Operator.SOUSTRACTION.getSymbol());
 			op = Operator.SOUSTRACTION;
+		}
+		if (position == -1) {
+			position = l.indexOf(Operator.MULTIPLICATION.getSymbol());
+			op = Operator.MULTIPLICATION;
 		}
 		if (position != -1){
 			List <String> listLeft = l.subList(0, position);
@@ -38,6 +52,7 @@ public class OperationFactory {
 				operation = new Operand (l.get(0));
 			}
 		}
-			return operation;
+			
+		return operation;
 	}
 }
